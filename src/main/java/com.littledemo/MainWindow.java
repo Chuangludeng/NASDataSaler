@@ -18,12 +18,15 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+
         URL url = getClass().getResource("/com.littledemo/MainWindow.fxml");
 
         Parent root = FXMLLoader.load(url);
 
-        primaryStage.setTitle("My Application");
+        primaryStage.setTitle("NasWaterMarker");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 }

@@ -58,9 +58,11 @@
                             <Separator orientation="VERTICAL" prefHeight="20.0" visible="false" />
                             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="269.0">
                               <children>
-                                <Button mnemonicParsing="false" text="导入钱包文件" />
+                                <Button mnemonicParsing="false" text="新建钱包" />
                                 <Separator prefWidth="20.0" />
-                                <Button mnemonicParsing="false" text="导出钱包文件" />
+                                <Button mnemonicParsing="false" text="导入钱包" />
+                                <Separator prefWidth="20.0" />
+                                <Button mnemonicParsing="false" text="导出钱包" />
                               </children>
                             </HBox>
                           </children>
