@@ -48,6 +48,14 @@ public class NASManager {
         }
     }
 
+    public String GetAccountAddress()
+    {
+        if(mCurAddress != null)
+            return mCurAddress.string();
+        else
+            return "";
+    }
+
     public String GetAccountBalance()
     {
         if(mCurAddress != null)
@@ -63,5 +71,21 @@ public class NASManager {
         }
         else
             return "ERROR";
+    }
+
+    public byte[] ExportWallet() throws Exception {
+        if(mCurAddress != null)
+        {
+            return mAccountManager.export(mCurAddress,mPassphrase);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void ImportWallet(byte[] keydata,byte[] passphrase) throws Exception {
+        mCurAddress = mAccountManager.load(keydata,passphrase);
+        mPassphrase = passphrase;
     }
 }

@@ -8,15 +8,15 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-1.0" minWidth="-1.0" prefHeight="534.0" prefWidth="749.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-1.0" minWidth="-1.0" prefHeight="534.0" prefWidth="847.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.littledemo.MainWindowController">
   <children>
-    <SplitPane dividerPositions="0.6318607764390897" focusTraversable="true" layoutX="2.0" layoutY="0.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="749.0">
+    <SplitPane dividerPositions="0.627520759193357" focusTraversable="true" layoutX="1.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="845.0">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="494.0" prefWidth="469.0">
           <children>
-            <VBox alignment="TOP_CENTER" layoutX="-3.0" layoutY="0.0" prefHeight="531.0" prefWidth="472.0">
+            <VBox alignment="TOP_CENTER" layoutX="-3.0" layoutY="0.0" prefHeight="531.0" prefWidth="526.0">
               <children>
-                <ToolBar>
+                <ToolBar prefWidth="535.0">
                   <items>
                     <Button mnemonicParsing="false" text="读入图片" />
                     <Button mnemonicParsing="false" text="保存图片" />
@@ -24,7 +24,7 @@
                     <Button mnemonicParsing="false" text="嵌入水印" />
                   </items>
                 </ToolBar>
-                <ImageView fitHeight="355.75" fitWidth="474.3333333333333" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fitHeight="379.56248380355555" fitWidth="506.0833435058594" pickOnBounds="true" preserveRatio="true" />
                 <Separator prefWidth="200.0" visible="false" />
                 <Label text="要嵌入水印信息" />
                 <Separator prefWidth="200.0" visible="false" />
@@ -35,34 +35,38 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
-            <VBox alignment="TOP_CENTER" fillWidth="true" layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="273.0">
+            <VBox alignment="TOP_CENTER" fillWidth="true" layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="311.0">
               <children>
                 <TitledPane animated="false" text="钱包状态">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                        <VBox alignment="CENTER" layoutX="-2.0" layoutY="-10.0" prefHeight="200.0" prefWidth="269.0">
+                        <VBox alignment="CENTER" layoutX="-2.0" layoutY="-10.0" prefHeight="200.0" prefWidth="311.0">
                           <children>
                             <Label text="钱包地址:" textAlignment="CENTER">
                               <font>
                                 <Font name="Microsoft JhengHei Bold" size="25.0" fx:id="x1" />
                               </font>
                             </Label>
-                            <Label text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
+                            <Label fx:id="mWalletAddressLabel" prefWidth="307.0" text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" textAlignment="CENTER">
+                              <font>
+                                <Font name="Microsoft YaHei" size="13.0" />
+                              </font>
+                            </Label>
+                            <Label font="$x1" text="余额:" textAlignment="CENTER" />
+                            <Label fx:id="mWalletBalanceLabel" prefWidth="139.0" text="200000" textAlignment="CENTER" textOverrun="ELLIPSIS">
                               <font>
                                 <Font name="Microsoft YaHei" size="15.0" fx:id="x2" />
                               </font>
                             </Label>
-                            <Label font="$x1" text="余额:" textAlignment="CENTER" />
-                            <Label font="$x2" text="2000" />
                             <Separator orientation="VERTICAL" prefHeight="20.0" visible="false" />
                             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="269.0">
                               <children>
-                                <Button mnemonicParsing="false" text="新建钱包" />
+                                <Button fx:id="mNewWalletButton" mnemonicParsing="false" onAction="#NewWalletButton" text="新建钱包" />
                                 <Separator prefWidth="20.0" />
-                                <Button mnemonicParsing="false" text="导入钱包" />
+                                <Button fx:id="mImportWalletButton" mnemonicParsing="false" onAction="#ImportWalletButton" text="导入钱包" />
                                 <Separator prefWidth="20.0" />
-                                <Button mnemonicParsing="false" text="导出钱包" />
+                                <Button fx:id="mExportWalletButton" mnemonicParsing="false" onAction="#ExportWalletButton" text="导出钱包" />
                               </children>
                             </HBox>
                           </children>
@@ -75,10 +79,10 @@
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                        <TextArea layoutX="14.0" layoutY="81.0" prefHeight="206.0" prefWidth="246.0" wrapText="true" />
+                        <TextArea layoutX="14.0" layoutY="81.0" prefHeight="206.0" prefWidth="279.0" wrapText="true" />
                         <Label layoutX="14.0" layoutY="7.0" text="交易ID" />
-                        <TextField layoutX="12.0" layoutY="27.0" prefWidth="246.0" />
-                        <Button layoutX="77.0" layoutY="55.0" mnemonicParsing="false" text="读取指定交易水印" />
+                        <TextField layoutX="12.0" layoutY="27.0" prefWidth="281.0" />
+                        <Button layoutX="96.0" layoutY="55.0" mnemonicParsing="false" text="读取指定交易水印" />
                       </children>
                     </AnchorPane>
                   </content>
