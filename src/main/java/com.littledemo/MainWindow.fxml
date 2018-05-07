@@ -14,34 +14,96 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="494.0" prefWidth="469.0">
           <children>
-            <VBox alignment="TOP_CENTER" layoutX="-3.0" layoutY="0.0" prefHeight="531.0" prefWidth="526.0">
-              <children>
-                <ToolBar prefWidth="535.0">
-                  <items>
-                    <Button mnemonicParsing="false" text="读入图片" />
-                    <Button mnemonicParsing="false" text="保存图片" />
-                    <Button mnemonicParsing="false" text="显示水印" />
-                    <Button mnemonicParsing="false" text="嵌入水印" />
-                  </items>
-                </ToolBar>
-                <ImageView fitHeight="379.56248380355555" fitWidth="506.0833435058594" pickOnBounds="true" preserveRatio="true" />
-                <Separator prefWidth="200.0" visible="false" />
-                <Label text="要嵌入水印信息" />
-                <Separator prefWidth="200.0" visible="false" />
-                <TextArea prefHeight="132.0" prefWidth="475.0" wrapText="true" />
-              </children>
-            </VBox>
+            <TabPane layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="526.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="创建付费信息">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="526.0">
+                      <children>
+                        <VBox alignment="TOP_CENTER" layoutX="0.0" layoutY="0.0" prefHeight="516.0" prefWidth="526.0">
+                          <children>
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="放入合约的付费信息" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <TextArea prefHeight="132.0" prefWidth="475.0" wrapText="true" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="阅读付费信息需要支付" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <TextField prefWidth="200.0" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Button mnemonicParsing="false" text="创建付费信息" />
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="付费查看信息">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <VBox alignment="TOP_CENTER" layoutX="0.0" layoutY="-7.0" prefHeight="516.0" prefWidth="526.0">
+                          <children>
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="付费信息地址" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <TextField prefWidth="200.0" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Button mnemonicParsing="false" text="查询付费信息价格" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="价格:" textFill="RED">
+                              <font>
+                                <Font size="18.0" fx:id="x3" />
+                              </font>
+                            </Label>
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Button mnemonicParsing="false" text="付费查看信息" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="付费信息内容" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <TextArea prefHeight="132.0" prefWidth="475.0" wrapText="true" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="提取费用到钱包">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <VBox alignment="TOP_CENTER" layoutX="0.0" layoutY="-7.0" prefHeight="516.0" prefWidth="526.0">
+                          <children>
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Button mnemonicParsing="false" text="查询我的付费信息收入" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label font="$x3" text="余额:" textFill="RED" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Button mnemonicParsing="false" text="提取到我的钱包" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
           </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
             <VBox alignment="TOP_CENTER" fillWidth="true" layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="311.0">
               <children>
-                <TitledPane animated="false" text="钱包状态">
+                <TitledPane animated="false" prefHeight="534.0" prefWidth="311.0" text="钱包状态">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                        <VBox alignment="CENTER" layoutX="-2.0" layoutY="-10.0" prefHeight="200.0" prefWidth="311.0">
+                        <VBox alignment="CENTER" layoutX="-2.0" layoutY="-10.0" prefHeight="519.0" prefWidth="311.0">
                           <children>
                             <Label text="钱包地址:" textAlignment="CENTER">
                               <font>
@@ -71,18 +133,6 @@
                             </HBox>
                           </children>
                         </VBox>
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" prefHeight="327.0" prefWidth="273.0" text="水印信息">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <TextArea layoutX="14.0" layoutY="81.0" prefHeight="206.0" prefWidth="279.0" wrapText="true" />
-                        <Label layoutX="14.0" layoutY="7.0" text="交易ID" />
-                        <TextField layoutX="12.0" layoutY="27.0" prefWidth="281.0" />
-                        <Button layoutX="96.0" layoutY="55.0" mnemonicParsing="false" text="读取指定交易水印" />
                       </children>
                     </AnchorPane>
                   </content>
