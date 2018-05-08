@@ -25,13 +25,17 @@
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Label text="放入合约的付费信息" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <TextArea prefHeight="132.0" prefWidth="475.0" wrapText="true" />
+                            <TextArea fx:id="mInputInfoText" prefHeight="132.0" prefWidth="475.0" wrapText="true" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Label text="阅读付费信息需要支付" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <TextField prefWidth="200.0" />
+                            <TextField id="mInputInfoText" fx:id="mInputInfoPrice" prefWidth="200.0" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Button mnemonicParsing="false" text="创建付费信息" />
+                            <Button fx:id="mCreatePayInfo" mnemonicParsing="false" onAction="#CreatePayInfo" text="创建付费信息" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="创建结果" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <TextArea fx:id="mCreatInfoResult" prefHeight="99.0" prefWidth="526.0" wrapText="true" />
                           </children>
                         </VBox>
                       </children>
@@ -47,21 +51,21 @@
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Label text="付费信息地址" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <TextField prefWidth="200.0" />
+                            <TextField fx:id="mCheckInfoAddress" prefWidth="200.0" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Button mnemonicParsing="false" text="查询付费信息价格" />
+                            <Button fx:id="mCheckInfoPrice" mnemonicParsing="false" onAction="#CheckInfoPrice" text="查询付费信息价格" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Label text="价格:" textFill="RED">
+                            <Label fx:id="mInfoPrice" text="价格:" textFill="RED">
                               <font>
                                 <Font size="18.0" fx:id="x3" />
                               </font>
                             </Label>
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Button mnemonicParsing="false" text="付费查看信息" />
+                            <Button fx:id="mPayInfo" mnemonicParsing="false" text="付费查看信息" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Label text="付费信息内容" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <TextArea prefHeight="132.0" prefWidth="475.0" wrapText="true" />
+                            <TextArea fx:id="mInfoText" prefHeight="132.0" prefWidth="475.0" wrapText="true" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                           </children>
                         </VBox>

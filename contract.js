@@ -6,10 +6,12 @@ var DepositeContent = function (text) {
     this.balance = new BigNumber(o.balance);
     this.price = new BigNumber(o.price);
     this.text = o.text;
+    this.buyer = new Array();
   } else {
     this.balance = new BigNumber(0);
     this.price = new BigNumber(0);
     this.text = "";
+    this.buyer = new Array();
   }
 };
 
@@ -54,7 +56,7 @@ BankVaultContract.prototype = {
     this.bankVault.put(from, deposit);
   },
 
-  readInfo: function (address) {
+  buyInfo: function (address) {
 
     var deposit = this.bankVault.get(address);
     if (!deposit) {
@@ -64,17 +66,32 @@ BankVaultContract.prototype = {
     if (Blockchain.transaction.value.lt(deposit.price)) {
       throw new Error("Amount less than price.");
     }
-    Event.Trigger("readInfo", {
+    Event.Trigger("buyInfo", {
           Transfer: {
             from: Blockchain.transaction.from,
             value: Blockchain.transaction.value
           }
         });
 
+    deposit.buyer[deposit.length+1] = Blockchain.transaction.from
     deposit.balance = deposit.balance.add(Blockchain.transaction.value);
     this.bankVault.put(address, deposit);
-    
-    return deposit.text;
+  },
+
+  readInfo: function (address) {
+
+    var deposit = this.bankVault.get(address);
+    if (!deposit) {
+      throw new Error("No Info before.");
+    }
+
+    for (addr in deposit.buyer)
+    {
+      if(addr == Blockchain.transaction.from)
+      {
+        return deposit.text;
+      }
+    }
   },
   
   takeout: function (value) {
@@ -109,6 +126,14 @@ BankVaultContract.prototype = {
   balanceOf: function () {
     var from = Blockchain.transaction.from;
     return this.bankVault.get(from);
+  },
+
+  priceOf:function (address) {
+    var deposit = this.bankVault.get(address);
+    if (!deposit) {
+      throw new Error("No Info before.");
+    }
+   return deposit.price;
   },
   
   verifyAddress: function (address) {

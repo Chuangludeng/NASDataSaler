@@ -16,7 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.json.JSONObject;
 
 import javax.swing.*;
 
@@ -30,14 +32,40 @@ public class MainWindowController implements Initializable{
     private Button mExportWalletButton;
 
     @FXML
+    private Button mCheckInfoPrice;
+
+    @FXML
+    private Button mPayInfo;
+
+    @FXML
+    private Button mCreatePayInfo;
+
+    @FXML
     private Label mWalletAddressLabel;
     @FXML
     private Label mWalletBalanceLabel;
 
     @FXML
-    private TextField myTextField;
+    private TextField mCheckInfoAddress;
+
+    @FXML
+    private TextField mInputInfoPrice;
+
+    @FXML
+    private Label mInfoPrice;
+
+    @FXML
+    private TextArea mInfoText;
+
+    @FXML
+    private TextArea mInputInfoText;
+
+    @FXML
+    private TextArea mCreatInfoResult;
 
     NASManager mNASManager;
+
+    private String Contract_address = "n1eNwvCZzpzfQEkPK6jWi9gge2sfLbzRquP";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,7 +106,7 @@ public class MainWindowController implements Initializable{
             String inputValue = JOptionPane.showInputDialog("请输入你的钱包密码");
 
             try {
-                mNASManager.ImportWallet(data.getBytes(),inputValue.getBytes());
+                mNASManager.ImportWallet(data.getBytes(),inputValue);
                 mWalletAddressLabel.setText(mNASManager.GetAccountAddress());
                 mWalletBalanceLabel.setText(mNASManager.GetAccountBalance());
             } catch (Exception e) {
@@ -114,6 +142,27 @@ public class MainWindowController implements Initializable{
             System.out.println("No file is selected!");
         }
     }
+
+    public void CheckInfoPrice()
+    {
+        JSONObject jObject = mNASManager.Call(Contract_address,"priceOf",String.format("['%s']",mCheckInfoAddress));
+
+        String price = "价格:"+jObject.getJSONObject("result").getString("result");
+
+        mInfoPrice.setText(price);
+
+        mWalletBalanceLabel.setText(mNASManager.GetAccountBalance());
+    }
+
+    public void CreatePayInfo()
+    {
+        String hash = mNASManager.CallContractFunction(Contract_address,0,"createInfo",String.format("['%s',%f]",mInputInfoText.getText(),Float.valueOf(mInputInfoPrice.getText())));
+
+        mWalletBalanceLabel.setText(mNASManager.GetAccountBalance());
+
+        mCreatInfoResult.setText(String.format("交易hash:%s",hash));
+    }
+
 
 
 
