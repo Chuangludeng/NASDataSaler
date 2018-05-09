@@ -65,7 +65,7 @@ public class MainWindowController implements Initializable{
 
     NASManager mNASManager;
 
-    private String Contract_address = "n1eNwvCZzpzfQEkPK6jWi9gge2sfLbzRquP";
+    private String Contract_address = "n1wdgeWcoeqtXkxrePHaAT8kFpuscc1qjzZ";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -145,9 +145,9 @@ public class MainWindowController implements Initializable{
 
     public void CheckInfoPrice()
     {
-        JSONObject jObject = mNASManager.Call(Contract_address,"priceOf",String.format("['%s']",mCheckInfoAddress));
+        JSONObject
 
-        String price = "价格:"+jObject.getJSONObject("result").getString("result");
+        String price = "价格:"+jObject.getString("result");
 
         mInfoPrice.setText(price);
 
@@ -158,7 +158,7 @@ public class MainWindowController implements Initializable{
     {
         String hash = null;
         try {
-            hash = mNASManager.CallContractFunction(Contract_address,0,"createInfo",String.format("['%s',%f]",mInputInfoText.getText(),Float.valueOf(mInputInfoPrice.getText())));
+            hash = mNASManager.CallContractFunction(Contract_address,0,"createInfo",String.format("[\"%s\",%f]",mInputInfoText.getText(),Float.valueOf(mInputInfoPrice.getText())));
         } catch (Exception e) {
             e.printStackTrace();
             mCreatInfoResult.setText(String.format("交易失败",hash));
