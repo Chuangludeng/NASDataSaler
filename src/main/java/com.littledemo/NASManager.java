@@ -3,6 +3,9 @@ package com.littledemo;
 import com.littledemo.Util.HttpClientUtil;
 import io.nebulas.account.AccountManager;
 import io.nebulas.core.Address;
+import io.nebulas.core.Transaction;
+import io.nebulas.core.TransactionCallPayload;
+import io.nebulas.util.ByteUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -23,7 +26,8 @@ public class NASManager {
     private String NAS_URL = "https://testnet.nebulas.io";
     private String NAS_GetAccountState = "/v1/user/accountstate";
     private String NAS_Call = "/v1/user/call";
-    private String NAS_TransactionWithPassphrase = "/v1/admin/transactionWithPassphrase";
+    private String NAS_SendRawTransaction = "/v1/user/rawtransaction";
+    private int chainID = 1001;//1 mainet,1001 testnet, 100 default private
 
     private AccountManager mAccountManager;
     private HttpClientUtil mHttpClientUtil;
@@ -124,29 +128,26 @@ public class NASManager {
             return null;
     }
 
-    public String CallContractFunction(String address,int value,String function,String arg)
-    {
+    public String CallContractFunction(String address,int value,String function,String arg) throws Exception {
         if(mCurAddress != null) {
+
+            Transaction.PayloadType payloadType = Transaction.PayloadType.CALL;
+            byte[] payload = new TransactionCallPayload(function, arg).toBytes();
+            // call to = contract address
+            Address to = Address.ParseFromString(address);
+            BigInteger gasPrice = new BigInteger("1000000"); // 0 < gasPrice < 10^12
+            BigInteger gasLimit = new BigInteger("200000"); // 20000 < gasPrice < 50*10^9
+            Transaction tx = new Transaction(chainID, mCurAddress, to, new BigInteger(String.valueOf(value)), mCurNonce+1, payloadType, payload, gasPrice, gasLimit);
+            mAccountManager.signTransaction(tx,mPassphrase);
+            byte[] rawData = tx.toProto();
+            String rawDataString = ByteUtils.Base64ToString(rawData);
             JSONObject requestJson = new JSONObject();
-            JSONObject transactionJson = new JSONObject();
-            transactionJson.put("from", mCurAddress.string());
-            transactionJson.put("to", address);
-            transactionJson.put("value", String.valueOf(value));
-            transactionJson.put("nonce", mCurNonce + 1);
-            transactionJson.put("gasPrice", "1000000");
-            transactionJson.put("gasLimit", "2000000");
-            JSONObject contractJson = new JSONObject();
-            contractJson.put("function", function);
-            contractJson.put("args", arg);
-            transactionJson.put("contract", contractJson);
+            requestJson.put("data", rawDataString);
 
-            requestJson.put("transaction", transactionJson);
-            requestJson.put("passphrase", mPassphraseString);
-
-            String responseJson = mHttpClientUtil.executeByPOST(NAS_URL + NAS_TransactionWithPassphrase, requestJson.toString());
+            String responseJson = mHttpClientUtil.executeByPOST(NAS_URL + NAS_SendRawTransaction, requestJson.toString());
 
             JSONObject jObject = new JSONObject(responseJson);
-            return jObject.getJSONObject("result").getString("hash");
+            return jObject.getJSONObject("result").getString("txhash");
         }
         else
             return "";

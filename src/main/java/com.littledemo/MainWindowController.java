@@ -156,7 +156,13 @@ public class MainWindowController implements Initializable{
 
     public void CreatePayInfo()
     {
-        String hash = mNASManager.CallContractFunction(Contract_address,0,"createInfo",String.format("['%s',%f]",mInputInfoText.getText(),Float.valueOf(mInputInfoPrice.getText())));
+        String hash = null;
+        try {
+            hash = mNASManager.CallContractFunction(Contract_address,0,"createInfo",String.format("['%s',%f]",mInputInfoText.getText(),Float.valueOf(mInputInfoPrice.getText())));
+        } catch (Exception e) {
+            e.printStackTrace();
+            mCreatInfoResult.setText(String.format("交易失败",hash));
+        }
 
         mWalletBalanceLabel.setText(mNASManager.GetAccountBalance());
 
