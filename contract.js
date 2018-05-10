@@ -6,7 +6,7 @@ var DepositeContent = function (text) {
     this.balance = new BigNumber(o.balance);
     this.price = new BigNumber(o.price);
     this.text = o.text;
-    this.buyer = new Array();
+    this.buyer = o.buyer;
   } else {
     this.balance = new BigNumber(0);
     this.price = new BigNumber(0);
@@ -73,7 +73,10 @@ BankVaultContract.prototype = {
           }
         });
 
-    deposit.buyer[deposit.length+1] = Blockchain.transaction.from
+    var b = deposit.buyer;
+    b[deposit.buyer.length+1] = Blockchain.transaction.from;
+    deposit.buyer = b;
+
     deposit.balance = deposit.balance.add(Blockchain.transaction.value);
     this.bankVault.put(address, deposit);
   },
@@ -85,29 +88,24 @@ BankVaultContract.prototype = {
       throw new Error("No Info before.");
     }
 
-    for (addr in deposit.buyer)
+    for (var i=0; i<deposit.buyer.length; i++)
     {
-      if(addr == Blockchain.transaction.from)
+      if(deposit.buyer[i] == Blockchain.transaction.from)
       {
         return deposit.text;
       }
     }
   },
   
-  takeout: function (value) {
+  takeout: function () {
   var from = Blockchain.transaction.from;
-  var amount = new BigNumber(value);
 
   var deposit = this.bankVault.get(from);
   if (!deposit) {
     throw new Error("No deposit before.");
   }
 
-  if (amount.gt(deposit.balance)) {
-    throw new Error("Insufficient balance.");
-  }
-
-  var result = Blockchain.transfer(from, amount);
+  var result = Blockchain.transfer(from, deposit.balance);
   if (!result) {
     throw new Error("transfer failed.");
   }
@@ -115,17 +113,17 @@ BankVaultContract.prototype = {
     Transfer: {
       from: Blockchain.transaction.to,
       to: from,
-      value: amount.toString()
+      value: deposit.balance
     }
   });
 
-  deposit.balance = deposit.balance.sub(amount);
+  deposit.balance = new BigNumber(0);
   this.bankVault.put(from, deposit);
 },
   
   balanceOf: function () {
     var from = Blockchain.transaction.from;
-    return this.bankVault.get(from);
+    return this.bankVault.get(from).balance;
   },
 
   priceOf:function (address) {

@@ -37,6 +37,8 @@ public class NASManager {
     private byte[] mPassphrase;
     private String mPassphraseString;
 
+    public double Ewei = 1000000000000000000.0;
+
     private NASManager() {
         try {
             mAccountManager = new AccountManager();
@@ -66,7 +68,7 @@ public class NASManager {
             return "";
     }
 
-    public String GetAccountBalance()
+    public double GetAccountBalance()
     {
         if(mCurAddress != null)
         {
@@ -79,10 +81,10 @@ public class NASManager {
 
             mCurNonce = jObject.getJSONObject("result").getInt("nonce");
 
-            return jObject.getJSONObject("result").getString("balance");
+            return Double.valueOf(jObject.getJSONObject("result").getString("balance"))/Ewei;
         }
         else
-            return "ERROR";
+            return 0;
     }
 
     public byte[] ExportWallet() throws Exception {
@@ -128,7 +130,7 @@ public class NASManager {
             return null;
     }
 
-    public String CallContractFunction(String address,int value,String function,String arg) throws Exception {
+    public String CallContractFunction(String address,long value,String function,String arg) throws Exception {
         if(mCurAddress != null) {
 
             Transaction.PayloadType payloadType = Transaction.PayloadType.CALL;
@@ -137,7 +139,7 @@ public class NASManager {
             Address to = Address.ParseFromString(address);
             BigInteger gasPrice = new BigInteger("1000000"); // 0 < gasPrice < 10^12
             BigInteger gasLimit = new BigInteger("200000"); // 20000 < gasPrice < 50*10^9
-            Transaction tx = new Transaction(chainID, mCurAddress, to, new BigInteger(String.valueOf(value)), mCurNonce+1, payloadType, payload, gasPrice, gasLimit);
+            Transaction tx = new Transaction(chainID, mCurAddress, to, BigInteger.valueOf(value), mCurNonce+1, payloadType, payload, gasPrice, gasLimit);
             mAccountManager.signTransaction(tx,mPassphrase);
             byte[] rawData = tx.toProto();
             String rawDataString = ByteUtils.Base64ToString(rawData);

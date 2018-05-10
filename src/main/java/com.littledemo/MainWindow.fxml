@@ -14,7 +14,12 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="494.0" prefWidth="469.0">
           <children>
-            <TabPane layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="526.0" tabClosingPolicy="UNAVAILABLE">
+            <Label fx:id="mInfoLabel" layoutX="163.0" layoutY="254.0" text="请新建或加载钱包文件" textFill="BLACK">
+              <font>
+                <Font size="20.0" />
+              </font>
+            </Label>
+            <TabPane fx:id="mMainPlane" disable="false" layoutX="0.0" layoutY="0.0" prefHeight="532.0" prefWidth="526.0" tabClosingPolicy="UNAVAILABLE" visible="true">
               <tabs>
                 <Tab text="创建付费信息">
                   <content>
@@ -61,7 +66,13 @@
                               </font>
                             </Label>
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Button fx:id="mPayInfo" mnemonicParsing="false" text="付费查看信息" />
+                            <Button fx:id="mPayInfo" mnemonicParsing="false" onAction="#PayInfo" text="购买" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Label text="交易TX" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <TextField fx:id="mbuyInfoTX" prefWidth="200.0" />
+                            <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
+                            <Button fx:id="mReadInfo" mnemonicParsing="false" onAction="#ReadInfo" text="查看付费信息" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Label text="付费信息内容" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
@@ -81,11 +92,11 @@
                           <children>
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Button mnemonicParsing="false" text="查询我的付费信息收入" />
+                            <Button fx:id="mCheckBalance" mnemonicParsing="false" onAction="#BalanceInfo" text="查询我的付费信息收入" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Label font="$x3" text="余额:" textFill="RED" />
+                            <Label fx:id="mBalanceLabel" font="$x3" text="余额:" textFill="RED" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
-                            <Button mnemonicParsing="false" text="提取到我的钱包" />
+                            <Button fx:id="mWithdrawal" mnemonicParsing="false" onAction="#Withdrawal" text="提取到我的钱包" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
                             <Separator prefHeight="20.0" prefWidth="200.0" visible="false" />
@@ -120,7 +131,7 @@
                               </font>
                             </Label>
                             <Label font="$x1" text="余额:" textAlignment="CENTER" />
-                            <Label fx:id="mWalletBalanceLabel" prefWidth="139.0" text="200000" textAlignment="CENTER" textOverrun="ELLIPSIS">
+                            <Label fx:id="mWalletBalanceLabel" prefWidth="265.0" text="200000" textAlignment="CENTER" textOverrun="ELLIPSIS">
                               <font>
                                 <Font name="Microsoft YaHei" size="15.0" fx:id="x2" />
                               </font>
@@ -135,6 +146,8 @@
                                 <Button fx:id="mExportWalletButton" mnemonicParsing="false" onAction="#ExportWalletButton" text="导出钱包" />
                               </children>
                             </HBox>
+                            <Separator orientation="VERTICAL" prefHeight="20.0" visible="false" />
+                            <Button mnemonicParsing="false" onAction="#UpdateWallet" text="刷新钱包余额" />
                           </children>
                         </VBox>
                       </children>
