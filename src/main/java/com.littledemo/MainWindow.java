@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-import javax.xml.stream.Location;
 import java.io.IOException;
 import java.net.URL;
 
@@ -20,7 +19,7 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage) throws IOException {
 
 
-        URL url = getClass().getResource("/com.littledemo/MainWindow.fxml");
+        URL url = getClass().getResource("/assets/MainWindow.fxml");
 
         Parent root = FXMLLoader.load(url);
 

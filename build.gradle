@@ -7,6 +7,7 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+
 repositories {
     mavenCentral()
 }
@@ -15,4 +16,21 @@ dependencies {
     compile "io.nebulas:nebulas:0.1"
     compile 'org.apache.httpcomponents:httpclient:4.5.5'
     compile group: 'org.json', name: 'json', version: '20180130'
+}
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                "Main-Class": "com.littledemo.MainWindow",
+                'Class-Path': new File('lib').list().findAll { it.endsWith('.jar') }.collect { "lib/$it" }.join(' ')
+        )
+    }
+    into('lib') {
+        from configurations.runtime
+    }
+    into('assets'){
+        from { 'src/main/java/assets/MainWindow.fxml' }
+    }
+
 }

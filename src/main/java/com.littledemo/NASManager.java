@@ -23,11 +23,12 @@ public class NASManager {
         return ourInstance;
     }
 
-    private String NAS_URL = "https://testnet.nebulas.io";
+    //private String NAS_URL = "https://testnet.nebulas.io";
+    private String NAS_URL = "https://mainnet.nebulas.io";
     private String NAS_GetAccountState = "/v1/user/accountstate";
     private String NAS_Call = "/v1/user/call";
     private String NAS_SendRawTransaction = "/v1/user/rawtransaction";
-    private int chainID = 1001;//1 mainet,1001 testnet, 100 default private
+    private int chainID = 1;//1 mainet,1001 testnet, 100 default private
 
     private AccountManager mAccountManager;
     private HttpClientUtil mHttpClientUtil;

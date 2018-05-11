@@ -83,7 +83,8 @@ public class MainWindowController implements Initializable{
 
     NASManager mNASManager;
 
-    private String Contract_address = "n21e3mr2v3E7psmaMDqnFKzVPsBMx5HdwYD";
+    //Testnet private String Contract_address = "n21e3mr2v3E7psmaMDqnFKzVPsBMx5HdwYD";
+    private String Contract_address = "n1xzh1kL18TgRF2Y5jZgNtps2hdkT3RgKxM";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
