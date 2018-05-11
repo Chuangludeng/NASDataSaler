@@ -12,6 +12,10 @@ NAS信息交易工具是通过NAS星云链的智能合约，实现信息交易�
 * 查询合约余额
 * 提取合约余额（仅合约发布者）
 
+## 下载
+
+https://github.com/Chuangludeng/NASDataSaler/releases/tag/1.0
+
 ## 教程
 
 ### 安装
