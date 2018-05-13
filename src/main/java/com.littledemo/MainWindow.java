@@ -23,7 +23,7 @@ public class MainWindow extends Application {
 
         Parent root = FXMLLoader.load(url);
 
-        primaryStage.setTitle("NAS加密信息交易");
+        primaryStage.setTitle("NASDataSaler");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

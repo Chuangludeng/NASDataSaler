@@ -98,7 +98,7 @@ public class MainWindowController implements Initializable{
 
     public void NewWalletButton()
     {
-        String inputValue = JOptionPane.showInputDialog("请设置你的钱包密码");
+        String inputValue = JOptionPane.showInputDialog("Please set your wallet password.");
 
         if(inputValue != "") {
             mNASManager.CreateAccount(inputValue);
@@ -126,7 +126,7 @@ public class MainWindowController implements Initializable{
             }
             input.close();
 
-            String inputValue = JOptionPane.showInputDialog("请输入你的钱包密码");
+            String inputValue = JOptionPane.showInputDialog("Please input your wallet password");
 
             try {
                 mNASManager.ImportWallet(data.getBytes(),inputValue);
@@ -136,7 +136,7 @@ public class MainWindowController implements Initializable{
                 mInfoLabel.setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "导入失败", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Import error", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -156,11 +156,11 @@ public class MainWindowController implements Initializable{
                 out.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "文件保存失败", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Save error", "Error", JOptionPane.ERROR_MESSAGE);
             }
             catch (Exception e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "导出失败", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Export error", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else {
@@ -174,7 +174,7 @@ public class MainWindowController implements Initializable{
 
         double newPrice = Double.valueOf(jObject.getString("result").replace("\"","")) / mNASManager.Ewei;
 
-        String strPrice = "价格:"+ String.valueOf(newPrice) +"NAS";
+        String strPrice = "Price:"+ String.valueOf(newPrice) +"NAS";
 
         mInfoPrice.setText(strPrice);
 
@@ -189,12 +189,12 @@ public class MainWindowController implements Initializable{
             hash = mNASManager.CallContractFunction(Contract_address,0,"createInfo",String.format("[\"%s\",%d]",mInputInfoText.getText(),price));
         } catch (Exception e) {
             e.printStackTrace();
-            mCreatInfoResult.setText(String.format("交易失败",hash));
+            mCreatInfoResult.setText("Transacter error");
         }
 
         mWalletBalanceLabel.setText(String.valueOf(mNASManager.GetAccountBalance()));
 
-        mCreatInfoResult.setText(String.format("交易hash:%s",hash));
+        mCreatInfoResult.setText(String.format("TX:%s",hash));
     }
 
     public void PayInfo()
@@ -207,10 +207,10 @@ public class MainWindowController implements Initializable{
         String hash = null;
         try {
             hash = mNASManager.CallContractFunction(Contract_address,price,"buyInfo",String.format("[\"%s\"]",mCheckInfoAddress.getText()));
-            mbuyInfoTX.setText(String.format("交易hash:%s",hash));
+            mbuyInfoTX.setText(String.format("TX:%s",hash));
         } catch (Exception e) {
             e.printStackTrace();
-            mbuyInfoTX.setText(String.format("交易失败",hash));
+            mbuyInfoTX.setText("Transacter error");
         }
 
         mWalletBalanceLabel.setText(String.valueOf(mNASManager.GetAccountBalance()));
@@ -234,7 +234,7 @@ public class MainWindowController implements Initializable{
 
         double newPrice = Double.valueOf(jObject2.getString("result").replace("\"","")) / mNASManager.Ewei;
 
-        mBalanceLabel.setText("余额:"+ String.valueOf(newPrice) +"NAS");
+        mBalanceLabel.setText("balance:"+ String.valueOf(newPrice) +"NAS");
 
         mWalletBalanceLabel.setText(String.valueOf(mNASManager.GetAccountBalance()));
     }
@@ -244,10 +244,10 @@ public class MainWindowController implements Initializable{
         String hash = null;
         try {
             hash = mNASManager.CallContractFunction(Contract_address,0,"takeout","[]");
-            mbuyInfoTX.setText(String.format("交易hash:%s",hash));
+            mbuyInfoTX.setText(String.format("TX:%s",hash));
         } catch (Exception e) {
             e.printStackTrace();
-            mbuyInfoTX.setText(String.format("交易失败",hash));
+            mbuyInfoTX.setText("Transacter error");
         }
 
         mWalletBalanceLabel.setText(String.valueOf(mNASManager.GetAccountBalance()));
